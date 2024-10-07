@@ -1,12 +1,12 @@
 •	Instalación y configuración.
--Descargar java JDK https://www.oracle.com/java/technologies/downloads/
--Descargar archivo Entrega-finalV1.0.jar
--Abrir cmd 
--Escribir lo siguiente: java -jar C:\Users\*TU USUARIO*\Descargas\Entrega-finalV1.0.jar
--Iniciar sesion como administrador: 
-user: admin
-pass:123
 
+-Descargar java JDK https://www.oracle.com/java/technologies/downloads/
+
+-Descargar archivo Entrega-finalV1.0.jar
+
+-Abrir cmd 
+
+-Escribir lo siguiente: java -jar C:\Users\*TU USUARIO*\Descargas\Entrega-finalV1.0.jar
 
 
 
@@ -61,7 +61,7 @@ Notas adicionales:
 Asegúrate de que los archivos doctores.csv, pacientes.csv y citas.csv estén en la carpeta db dentro del directorio del proyecto. Si no existen, se crearán automáticamente la primera vez que se ejecute el programa.
 Siempre puedes reiniciar el programa para hacer más operaciones.
 
-
+Licencia: Free
 
 
 

@@ -1,0 +1,131 @@
+// Clase que representa una cita
+class Cita {
+    private String idCita; // Identificador de la cita
+    private String fecha; // Fecha de la cita
+    private String hora; // Hora de la cita
+    private String motivo; // Motivo de la cita
+    private Doctor doctor; // Doctor asociado a la cita
+    private Paciente paciente; // Paciente asociado a la cita
+
+    // Constructor para crear una cita
+    public Cita(String idCita, String fecha, String hora, String motivo, Doctor doctor, Paciente paciente) {
+        this.idCita = idCita;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo = motivo;
+        this.doctor = doctor;
+        this.paciente = paciente;
+    }
+
+    // Método estático para crear una cita
+    public static void crearCita(Scanner scanner) {
+        System.out.println("Ingrese el ID de la cita: ");
+        String idCita = scanner.nextLine();
+        System.out.println("Ingrese la fecha de la cita (YYYY-MM-DD): ");
+        String fecha = scanner.nextLine();
+        System.out.println("Ingrese la hora de la cita (HH:MM): ");
+        String hora = scanner.nextLine();
+        System.out.println("Ingrese el motivo de la cita: ");
+        String motivo = scanner.nextLine();
+
+        System.out.println("Ingrese el ID del doctor para esta cita: ");
+        String idDoctor = scanner.nextLine();
+        Doctor doctor = buscarDoctorPorId(idDoctor); // Busca el doctor por ID
+
+        if (doctor == null) {
+            System.out.println("Error: Doctor no encontrado.");
+            return;
+        }
+
+        System.out.println("Ingrese el ID del paciente para esta cita: ");
+        String idPaciente = scanner.nextLine();
+        Paciente paciente = buscarPacientePorId(idPaciente); // Busca el paciente por ID
+
+        if (paciente == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        Cita cita = new Cita(idCita, fecha, hora, motivo, doctor, paciente);
+        cita.guardarCita(); // Guarda la cita
+    }
+
+    // Método para guardar la cita en un archivo
+    public void guardarCita() {
+        try (FileWriter writer = new FileWriter("db/citas.csv", true)) {
+            writer.append(idCita).append(",")
+                    .append(fecha).append(",")
+                    .append(hora).append(",")
+                    .append(motivo).append(",")
+                    .append(doctor.getIdDoctor()).append(",")
+                    .append(paciente.getIdPaciente()).append("\n");
+            System.out.println("Cita guardada exitosamente.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar la cita: " + e.getMessage());
+        }
+    }
+
+    // Método estático para consultar las citas
+    public static void consultarCitas() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("db/citas.csv"))) {
+            String linea;
+            System.out.println("\n--- Listado de Citas ---");
+
+            while ((linea = reader.readLine()) != null) {
+                String[] datosCita = linea.split(",");
+
+                String idCita = datosCita[0];
+                String fecha = datosCita[1];
+                String hora = datosCita[2];
+                String motivo = datosCita[3];
+                String idDoctor = datosCita[4];
+                String idPaciente = datosCita[5];
+
+                Doctor doctor = buscarDoctorPorId(idDoctor); // Busca el doctor por ID
+                Paciente paciente = buscarPacientePorId(idPaciente); // Busca el paciente por ID
+
+                if (doctor != null && paciente != null) {
+                    System.out.printf("Cita ID: %s\nFecha: %s\nHora: %s\nMotivo: %s\n", idCita, fecha, hora, motivo);
+                    System.out.printf("Doctor: %s (ID: %s)\nPaciente: %s (ID: %s)\n\n",
+                            doctor.nombre, doctor.getIdDoctor(), paciente.nombre, paciente.getIdPaciente());
+                } else {
+                    System.out.println("Error al recuperar la información del doctor o paciente.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer las citas: " + e.getMessage());
+        }
+    }
+
+    // Método estático para buscar un doctor por su ID
+    public static Doctor buscarDoctorPorId(String idDoctor) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("db/doctores.csv"))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos[0].equals(idDoctor)) {
+                    return new Doctor(datos[0], datos[1], datos[2]); // Devuelve el doctor encontrado
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al buscar el doctor: " + e.getMessage());
+        }
+        return null; // Retorna null si no se encuentra
+    }
+
+    // Método estático para buscar un paciente por su ID
+    public static Paciente buscarPacientePorId(String idPaciente) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("db/pacientes.csv"))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos[0].equals(idPaciente)) {
+                    return new Paciente(datos[0], datos[1]); // Devuelve el paciente encontrado
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al buscar el paciente: " + e.getMessage());
+        }
+        return null; // Retorna null si no se encuentra
+    }
+}

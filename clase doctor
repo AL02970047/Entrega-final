@@ -1,14 +1,17 @@
+// Clase que representa a un doctor
 class Doctor {
-    private String idDoctor;
-    public String nombre;
-    private String especialidad;
+    private String idDoctor; // Identificador del doctor
+    public String nombre; // Nombre del doctor
+    private String especialidad; // Especialidad del doctor
 
+    // Constructor para crear un doctor
     public Doctor(String idDoctor, String nombre, String especialidad) {
         this.idDoctor = idDoctor;
         this.nombre = nombre;
         this.especialidad = especialidad;
     }
 
+    // Método estático para dar de alta a un doctor
     public static void altaDoctor(Scanner scanner) {
         System.out.println("Ingrese el ID del doctor: ");
         String id = scanner.nextLine();
@@ -18,9 +21,10 @@ class Doctor {
         String especialidad = scanner.nextLine();
 
         Doctor doctor = new Doctor(id, nombre, especialidad);
-        doctor.guardarDoctor();
+        doctor.guardarDoctor(); // Guarda la información del doctor
     }
 
+    // Método para guardar el doctor en un archivo
     public void guardarDoctor() {
         try (FileWriter writer = new FileWriter("db/doctores.csv", true)) {
             writer.append(idDoctor).append(",").append(nombre).append(",").append(especialidad).append("\n");
@@ -30,8 +34,10 @@ class Doctor {
         }
     }
 
+    // Getter para obtener el ID del doctor
     public String getIdDoctor() {
         return idDoctor;
     }
 }
+
 

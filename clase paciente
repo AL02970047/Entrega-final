@@ -1,19 +1,15 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+// Clase que representa a un paciente
+class Paciente {
+    private String idPaciente; // Identificador del paciente
+    public String nombre; // Nombre del paciente
 
-// Clase Paciente - Representa a un paciente con ID y nombre.
-// Funcionalidades: Alta de paciente y guardar su información en archivo.
-public class Paciente {
-    private String idPaciente;
-    public String nombre;
-
+    // Constructor para crear un paciente
     public Paciente(String idPaciente, String nombre) {
         this.idPaciente = idPaciente;
         this.nombre = nombre;
     }
 
-    // Método para registrar un nuevo paciente - permite capturar datos del paciente y almacenarlos.
+    // Método estático para dar de alta a un paciente
     public static void altaPaciente(Scanner scanner) {
         System.out.println("Ingrese el ID del paciente: ");
         String id = scanner.nextLine();
@@ -21,10 +17,10 @@ public class Paciente {
         String nombre = scanner.nextLine();
 
         Paciente paciente = new Paciente(id, nombre);
-        paciente.guardarPaciente();
+        paciente.guardarPaciente(); // Guarda la información del paciente
     }
 
-    // Método para guardar paciente en archivo CSV
+    // Método para guardar el paciente en un archivo
     public void guardarPaciente() {
         try (FileWriter writer = new FileWriter("db/pacientes.csv", true)) {
             writer.append(idPaciente).append(",").append(nombre).append("\n");
@@ -34,7 +30,7 @@ public class Paciente {
         }
     }
 
-    // Método getter para el ID del paciente, usado en la creación y consulta de citas.
+    // Getter para obtener el ID del paciente
     public String getIdPaciente() {
         return idPaciente;
     }

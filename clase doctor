@@ -1,0 +1,45 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+// Clase Doctor - Representa a un doctor con ID, nombre y especialidad.
+// Funcionalidades: Alta de doctor y guardar su información en archivo.
+public class Doctor {
+    private String idDoctor;
+    public String nombre;
+    private String especialidad;
+
+    public Doctor(String idDoctor, String nombre, String especialidad) {
+        this.idDoctor = idDoctor;
+        this.nombre = nombre;
+        this.especialidad = especialidad;
+    }
+
+    // Método para registrar un nuevo doctor - permite capturar datos del doctor y almacenarlos.
+    public static void altaDoctor(Scanner scanner) {
+        System.out.println("Ingrese el ID del doctor: ");
+        String id = scanner.nextLine();
+        System.out.println("Ingrese el nombre del doctor: ");
+        String nombre = scanner.nextLine();
+        System.out.println("Ingrese la especialidad del doctor: ");
+        String especialidad = scanner.nextLine();
+
+        Doctor doctor = new Doctor(id, nombre, especialidad);
+        doctor.guardarDoctor();
+    }
+
+    // Método para guardar doctor en archivo CSV
+    public void guardarDoctor() {
+        try (FileWriter writer = new FileWriter("db/doctores.csv", true)) {
+            writer.append(idDoctor).append(",").append(nombre).append(",").append(especialidad).append("\n");
+            System.out.println("Doctor guardado exitosamente.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar el doctor: " + e.getMessage());
+        }
+    }
+
+    // Método getter para el ID del doctor, usado en la creación y consulta de citas.
+    public String getIdDoctor() {
+        return idDoctor;
+    }
+}

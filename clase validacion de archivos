@@ -1,0 +1,22 @@
+// Clase para validar la existencia de archivos necesarios
+class ValidacionArchivos {
+    public static void verificarArchivos() {
+        verificarYCrearArchivo("db/doctores.csv"); // Verifica o crea archivo de doctores
+        verificarYCrearArchivo("db/pacientes.csv"); // Verifica o crea archivo de pacientes
+        verificarYCrearArchivo("db/citas.csv"); // Verifica o crea archivo de citas
+    }
+
+    // Método para verificar y crear un archivo si no existe
+    private static void verificarYCrearArchivo(String ruta) {
+        File file = new File(ruta);
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Archivo creado: " + file.getName());
+            } else {
+                System.out.println("El archivo ya existe.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al crear el archivo: " + e.getMessage());
+        }
+    }
+}

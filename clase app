@@ -1,17 +1,12 @@
-import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) {
-        // Verifica la existencia de los archivos necesarios para la operación del sistema.
         ValidacionArchivos.verificarArchivos();
         Scanner scanner = new Scanner(System.in);
         Administrador admin = new Administrador();
 
-        // Verifica las credenciales de acceso del administrador antes de iniciar el sistema.
         if (admin.verificarCredenciales(scanner)) {
             boolean salir = false;
             while (!salir) {
-                // Menú principal del sistema
                 System.out.println("\n--- Sistema de administración de citas ---");
                 System.out.println("1. Alta de Doctor");
                 System.out.println("2. Alta de Paciente");
@@ -25,23 +20,18 @@ public class App {
 
                 switch (opcion) {
                     case 1:
-                        // Alta de Doctor
                         Doctor.altaDoctor(scanner);
                         break;
                     case 2:
-                        // Alta de Paciente
                         Paciente.altaPaciente(scanner);
                         break;
                     case 3:
-                        // Crear nueva cita
                         Cita.crearCita(scanner);
                         break;
                     case 4:
-                        // Consultar citas almacenadas
                         Cita.consultarCitas();
                         break;
                     case 5:
-                        // Salir del sistema
                         salir = true;
                         break;
                     default:

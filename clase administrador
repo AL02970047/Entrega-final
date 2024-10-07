@@ -1,17 +1,15 @@
-import java.util.Scanner;
+// Clase que representa al administrador
+class Administrador {
+    private static final String USUARIO = "admin"; // Nombre de usuario por defecto
+    private static final String CONTRASENA = "1234"; // Contraseña por defecto
 
-// Clase Administrador - Encargada de verificar las credenciales de acceso al sistema.
-// Funcionalidades: Comprobar si el administrador tiene acceso al sistema.
-public class Administrador {
-    private String usuario = "admin"; // Usuario predeterminado
-    private String contrasena = "admin123"; // Contraseña predeterminada
-
-    // Método para verificar las credenciales de acceso del administrador.
+    // Método para verificar las credenciales del administrador
     public boolean verificarCredenciales(Scanner scanner) {
-        System.out.println("Ingrese usuario: ");
-        String usuarioInput = scanner.nextLine();
-        System.out.println("Ingrese contraseña: ");
-        String contrasenaInput = scanner.nextLine();
-        return usuarioInput.equals(usuario) && contrasenaInput.equals(contrasena);
+        System.out.println("Ingrese su usuario: ");
+        String usuario = scanner.nextLine();
+        System.out.println("Ingrese su contraseña: ");
+        String contrasena = scanner.nextLine();
+
+        return USUARIO.equals(usuario) && CONTRASENA.equals(contrasena); // Compara las credenciales
     }
 }
